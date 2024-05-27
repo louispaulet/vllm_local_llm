@@ -1,0 +1,20 @@
+
+Command to start the server:
+
+docker run --gpus all \
+    -v ~/.cache/huggingface:/root/.cache/huggingface \
+    --env "HUGGING_FACE_HUB_TOKEN=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" \
+    -p 8000:8000 \
+    --ipc=host \
+    vllm/vllm-openai:latest \
+    --model TheBloke/Mistral-7B-Instruct-v0.2-AWQ
+	
+Hello world api call:  
+	
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+     "model": "TheBloke/Mistral-7B-Instruct-v0.2-AWQ",
+     "messages": [{"role": "user", "content": "What is the capital of France?"}],
+     "temperature": 0.7
+   }'
